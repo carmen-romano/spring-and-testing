@@ -15,17 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class SpringAndTestingApplicationTests {
 	private AnnotationConfigApplicationContext ctx;
+    private Ordine ordine;
+	private Menu m;
 
 	@BeforeEach
 	void setupContext() {
 		ctx = new AnnotationConfigApplicationContext(SpringComponentsApplication.class);
+        Tavolo tavolo = new Tavolo(1.50, 4);
+		ordine = new Ordine(tavolo);
+		m = (Menu) ctx.getBean("menu");
 	}
 	///*****************************TEST 1 *********************************
 	@Test
 	void costoCoperto() {
-		Tavolo tavolo = new Tavolo(1.50, 4);
-		Ordine ordine = new Ordine(tavolo);
-
 		double expectedTotale = ordine.getImportoTotale();
 		double result = 6;
 		assertEquals(expectedTotale, result);
@@ -34,8 +36,6 @@ class SpringAndTestingApplicationTests {
 
 	@Test
 	void costoTotaleOrdine() {
-		Tavolo tavolo = new Tavolo(1.50, 4);
-		Ordine ordine = new Ordine(tavolo);
 		Menu m = (Menu) ctx.getBean("menu");
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(2));
 
@@ -47,15 +47,10 @@ class SpringAndTestingApplicationTests {
 	///*****************************TEST 3 *********************************
 	@Test
 	void testSvuotaOrdine() {
-		Tavolo tavolo = new Tavolo(1.50, 4);
-		Ordine ordine = new Ordine(tavolo);
-		Menu m = (Menu) ctx.getBean("menu");
-
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(3));
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(2));
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(1));
 		assertFalse(ordine.getElementiOrdinati().isEmpty());
-
 		ordine.svuotaOrdine();
 		assertTrue(ordine.getElementiOrdinati().isEmpty());
 	}
@@ -64,10 +59,6 @@ class SpringAndTestingApplicationTests {
 	///*****************************TEST 4 *********************************
 	@Test
 	void testSvuotaElementoDaOrdine() {
-		Tavolo tavolo = new Tavolo(1.50, 4);
-		Ordine ordine = new Ordine(tavolo);
-		Menu m = (Menu) ctx.getBean("menu");
-
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(3));
 		assertEquals(1, ordine.getElementiOrdinati().size());
 
@@ -85,7 +76,6 @@ class SpringAndTestingApplicationTests {
 	void testCalcoloImportoTotale(double costoCoperto, int numeroPersone, int indiceMenu, double expectedResult) {
 		Tavolo tavolo = new Tavolo(costoCoperto, numeroPersone);
 		Ordine ordine = new Ordine(tavolo);
-		Menu m = (Menu) ctx.getBean("menu");
 
 		ordine.aggiungiElementoOrdinato(m.getPizzaList().get(indiceMenu));
 
