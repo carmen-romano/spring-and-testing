@@ -12,7 +12,7 @@ import java.util.List;
 @PropertySource("application.properties")
 public class AppConfig {
 	@Bean(name = "tavolo")
-	public Tavolo tavolo(@Value("${costo.coperto}")double costoCoperto){return new Tavolo(costoCoperto);
+	public Tavolo tavolo(@Value("${costo.coperto}")double costoCoperto){return new Tavolo(costoCoperto,5);
 	}
 	@Bean(name = "toppings_tomato")
 	public Topping toppingTomatoBean() {

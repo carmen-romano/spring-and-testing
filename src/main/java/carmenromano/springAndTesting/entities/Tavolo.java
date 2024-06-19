@@ -15,10 +15,9 @@ public class Tavolo {
     private boolean occupato;
     private double costoCoperto;
 
-    public Tavolo(double costoCoperto) {
+    public Tavolo(double costoCoperto, int numeroCoperti) {
         this.numero = ++counter;
-        Random random = new Random();
-        this.numeroCoperti = random.nextInt(10);
+        this.numeroCoperti = numeroCoperti;
         this.occupato = false;
         this.costoCoperto = costoCoperto;
     }

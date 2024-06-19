@@ -46,6 +46,13 @@ public class Ordine {
         }
         return totale;
     }
+    public void rimuoviElementoOrdinato(Item elementoOrdinato) {
+        elementiOrdinati.remove(elementoOrdinato);
+    }
+
+    public void svuotaOrdine() {
+        elementiOrdinati.clear();
+    }
 
     @Override
     public String toString() {

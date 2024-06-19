@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 @Slf4j
 public class SpringComponentsApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringComponentsApplication.class, args);
 
